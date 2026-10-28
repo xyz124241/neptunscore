@@ -1,0 +1,68 @@
+# Neptun configuration
+prefix: '&8[&f&lNeptun&8] &f'
+# Block use of Nether and End portals. Existing world access may need server/portal configuration too.
+dimensions:
+  disable-nether: false
+  disable-end: false
+
+homes:
+  default-limit: 3
+  limits:
+    member: 3
+    platin: 5
+    titan: 8
+    astat: 12
+    astro: 15
+    lunar: 20
+    neptun: 30
+
+rtp:
+  worlds:
+    world:
+      enabled: true
+      min-radius: 500
+      max-radius: 10000
+  ranks:
+    neptun:
+      priority: 0
+      min-radius: 500
+      max-radius: 10000
+      cooldown: 50
+    lunar:
+      priority: 1
+      min-radius: 500
+      max-radius: 10000
+      cooldown: 120
+    astro:
+      priority: 2
+      min-radius: 500
+      max-radius: 10000
+      cooldown: 150
+    astat:
+      priority: 3
+      min-radius: 500
+      max-radius: 10000
+      cooldown: 200
+    titan:
+      priority: 4
+      min-radius: 500
+      max-radius: 10000
+      cooldown: 250
+    platin:
+      priority: 5
+      min-radius: 500
+      max-radius: 10000
+      cooldown: 300
+    member:
+      priority: 6
+      min-radius: 500
+      max-radius: 10000
+      cooldown: 360
+  max-attempts: 40
+  menu-title: '&8&lRTP'
+homes-menu:
+  title: '&8&lDeine Homes'
+  rows: 3
+rtp-menu:
+  title: '&8&lZufalls-Teleport'
+  rows: 3
