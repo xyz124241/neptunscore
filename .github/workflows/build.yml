@@ -1,3 +1,4 @@
+
 name: Build
 
 on:
@@ -11,27 +12,35 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Java 21 installieren
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
           cache: maven
 
-      - name: Build JAR
-        run: mvn -B package
+      - name: Maven installieren und Build ausführen
+        run: mvn --batch-mode --no-transfer-progress clean package
 
-      - name: JAR als Download bereitstellen
+      - name: Prüfen, ob die JAR existiert
+        run: |
+          test -f target/NeptunCore-1.0.0.jar
+          ls -lh target/NeptunCore-1.0.0.jar
+
+      - name: Plugin zum Download bereitstellen
         uses: actions/upload-artifact@v4
         with:
           name: NeptunCore
-          path: target/NeptunCore-*.jar
+          path: target/NeptunCore-1.0.0.jar
+          if-no-files-found: error
 
-      # Bei einem Tag wie v1.0.0 wird die JAR zusätzlich als GitHub-Release veröffentlicht
-      - name: Release erstellen
+      - name: GitHub Release erstellen
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          files: target/NeptunCore-*.jar
+          files: target/NeptunCore-1.0.0.jar
